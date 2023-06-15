@@ -18,7 +18,7 @@ function StudyDeck() {
         const abortController = new AbortController();
         (async ()=>{
             try {
-                let newDeck = await readDeck(deckId);
+                let newDeck = await readDeck(deckId, abortController.signal);
                 setDeck({...newDeck});
             }
             catch (error) {

@@ -53,7 +53,7 @@ function ViewDeck() {
     
                 <div className="d-flex justify-content-between">
                     <div>
-                        <Link to={`${deck.id}/edit`} className="btn btn-secondary">Edit</Link>
+                        <Link to={`${deck.id}/edit`} className="btn btn-secondary" edit={"true"}>Edit</Link>
                         <Link to={`${deck.id}/study`} className="btn btn-primary">Study</Link>
                         <button className="btn btn-primary">Add Cards</button>
                     </div>

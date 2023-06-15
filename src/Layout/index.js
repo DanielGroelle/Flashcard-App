@@ -5,8 +5,7 @@ import Header from "./Header";
 import NotFound from "./NotFound";
 import Decks from "./Decks//Decks";
 import StudyDeck from "./Decks/StudyDeck";
-import CreateDeck from "./Decks/CreateDeck";
-import EditDeck from "./Decks/EditDeck"
+import CreateEditDeck from "./Decks/CreateEditDeck";
 import ViewDeck from "./Decks/ViewDeck";
 
 function Layout() {
@@ -20,10 +19,10 @@ function Layout() {
                         <Decks />
                     </Route>
                     <Route path="/decks/new" exact>
-                        <CreateDeck />
+                        <CreateEditDeck edit={false} />
                     </Route>
                     <Route path="/decks/:deckId/edit" exact>
-                        <EditDeck />
+                        <CreateEditDeck edit={true} />
                     </Route>
                     <Route path="/decks/:deckId" exact>
                         <ViewDeck />
