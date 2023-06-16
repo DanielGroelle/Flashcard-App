@@ -68,26 +68,26 @@ function CreateEditCard({edit = false}) {
     function handleChange(event) {
         let newFormData = {...formData};
         newFormData[event.target.name] = event.target.value;
-        setFormData(newFormData)
+        setFormData(newFormData);
     }
 
     async function handleSubmit(event) {
         event.preventDefault();
-        let newCard;
         if (edit) {
             let card = {
                 front: event.target.front.value,
                 back: event.target.back.value,
-                id: cardId
+                id: cardId,
+                deckId: Number(deckId)
             }
-            newCard = await updateCard(card);
+            await updateCard(card);
         }
         else {
             let card = {
                 front: event.target.front.value,
                 back: event.target.back.value
             }
-            newCard = await createCard(deckId, card);
+            await createCard(deckId, card);
         }
         history.push(`/decks/${deckId}`);
     }
