@@ -7,7 +7,7 @@ function Deck({deck, handleDelete}) {
             <div className="card-body">
                 <div className="card-title d-flex justify-content-between">
                     <h5>{deck.name}</h5>
-                    <h6>{deck.cards.length} Cards</h6>
+                    <h6>{deck.cards.length} cards</h6>
                 </div>
                 <p className="card-text">{deck.description}</p>
                 <div className="d-flex w-100">

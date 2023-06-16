@@ -3,7 +3,7 @@ import {Link, useHistory, useParams} from "react-router-dom";
 
 import {createDeck, readDeck, updateDeck} from "../../utils/api/index";
 
-function CreateEditDeck({edit}) {
+function CreateEditDeck({edit = false}) {
     let history = useHistory();
     const [loadingContent, setLoadingContent] = useState(<p>Loading...</p>);
 

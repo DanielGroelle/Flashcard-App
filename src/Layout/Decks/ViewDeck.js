@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useHistory} from "react-router-dom";
 
-import {readDeck} from "../../utils/api/index";
+import {readDeck, deleteDeck, deleteCard} from "../../utils/api/index";
 import Card from "../Cards/Card";
 
 function ViewDeck() {
@@ -10,6 +10,8 @@ function ViewDeck() {
     const [deck, setDeck] = useState({...initialDeck});
     //content to display while page is loading or if deck cant be found
     const [loadingContent, setLoadingContent] = useState(<p>Loading...</p>);
+
+    let history = useHistory();
 
     useEffect(()=>{
         const abortController = new AbortController();
@@ -37,6 +39,24 @@ function ViewDeck() {
         };
     }, [deckId]);
 
+    async function handleDeleteDeck() {
+        let message = "Delete this deck?\nYou will not be able to recover it.";
+        if (window.confirm(message)) {
+            await deleteDeck(deckId);
+            history.push("/");
+        }
+    }
+
+    async function handleDeleteCard(cardId) {
+        let message = "Delete this card?\nYou will not be able to recover it.";
+        if (window.confirm(message)) {
+            let newDeck = JSON.parse(JSON.stringify(deck));
+            newDeck.cards = newDeck.cards.filter((card)=>card.id !== cardId);
+            setDeck(newDeck);
+            await deleteCard(cardId);
+        }
+    }
+
     //if the deck has been fetched yet
     if (deck.id) {
         return (
@@ -55,17 +75,17 @@ function ViewDeck() {
                     <div>
                         <Link to={`${deck.id}/edit`} className="btn btn-secondary" edit={"true"}>Edit</Link>
                         <Link to={`${deck.id}/study`} className="btn btn-primary">Study</Link>
-                        <button className="btn btn-primary">Add Cards</button>
+                        <Link to={`/decks/${deckId}/cards/new`} className="btn btn-primary">Add Cards</Link>
                     </div>
                     <div>
-                        <button className="btn btn-danger">Delete</button>
+                        <button className="btn btn-danger" onClick={handleDeleteDeck}>Delete</button>
                     </div>
                 </div>
     
                 <div className="my-3">
                     <h2>Cards</h2>
                     {deck.cards.map((card)=> {
-                        return <Card card={card} key={card.id}/>}
+                        return <Card card={card} deckId={deck.id} key={card.id} handleDeleteCard={handleDeleteCard}/>}
                     )}
                 </div>
             </div>

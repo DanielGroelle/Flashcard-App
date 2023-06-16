@@ -69,8 +69,7 @@ function StudyDeck() {
             <div>
                 <h2>Not enough cards.</h2>
                 <p>You need at least 3 cards to study. There are {deck.cards.length} cards in this deck.</p>
-                {/*!!!!!!!! todo make this link to add cards screen !!!!!!!!!!!*/}
-                <Link to="/" className="btn btn-primary">Add Cards</Link>
+                <Link to={`/decks/${deckId}/cards/new`} className="btn btn-primary">Add Cards</Link>
             </div>
         );
     }
