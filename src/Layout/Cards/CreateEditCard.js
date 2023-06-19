@@ -105,7 +105,7 @@ function CreateEditCard({edit = false}) {
                     </ol>
                 </nav>
     
-                <h1>{deck.name}: {editOrAdd} Card</h1>
+                <h1>{edit ? deck.name + ":" : ""} {editOrAdd} Card</h1>
                 <form onSubmit={handleSubmit} className="d-flex flex-column">
                     <label htmlFor="front">Front</label>
                     <textarea id="front" name="front" rows="3" placeholder="Front side of the card" required onChange={handleChange} value={formData.front}/>
@@ -113,8 +113,8 @@ function CreateEditCard({edit = false}) {
                     <label htmlFor="back">Back</label>
                     <textarea id="back" name="back" rows="3" placeholder="Back side of the card" onChange={handleChange} value={formData.back}/>
                     <div className="mt-3">
-                        <Link to={`/decks/${deckId}`} className="btn btn-secondary">Cancel</Link>
-                        <button type="submit" className="btn btn-primary">Submit</button>
+                        <Link to={`/decks/${deckId}`} className="btn btn-secondary">{edit ? "Cancel" : "Done"}</Link>
+                        <button type="submit" className="btn btn-primary">{edit ? "Submit" : "Save"}</button>
                     </div>
                 </form>
             </div>
