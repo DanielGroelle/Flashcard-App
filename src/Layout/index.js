@@ -7,7 +7,8 @@ import Decks from "./Decks//Decks";
 import StudyDeck from "./Decks/StudyDeck";
 import CreateEditDeck from "./Decks/CreateEditDeck";
 import ViewDeck from "./Decks/ViewDeck";
-import CreateEditCard from "./Cards/CreateEditCard";
+import AddCard from "./Cards/AddCard";
+import EditCard from "./Cards/EditCard";
 
 function Layout() {
     return (
@@ -29,10 +30,10 @@ function Layout() {
                         <ViewDeck />
                     </Route>
                     <Route path="/decks/:deckId/cards/new" exact>
-                        <CreateEditCard edit={false} />
+                        <AddCard />
                     </Route>
                     <Route path="/decks/:deckId/cards/:cardId/edit" exact>
-                        <CreateEditCard edit={true} />
+                        <EditCard />
                     </Route>
                     <Route path="/decks/:deckId/study" exact>
                         <StudyDeck />
