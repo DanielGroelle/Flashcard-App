@@ -14,7 +14,7 @@ function CardForm({edit = false, deck={}, card={}}) {
         if (edit) {
             setFormData({front: card.front, back: card.back});
         }
-    }, [])
+    }, [edit])
 
     function handleChange(event) {
         let newFormData = {...formData};
@@ -22,6 +22,7 @@ function CardForm({edit = false, deck={}, card={}}) {
         setFormData(newFormData);
     }
 
+    let popup;
     async function handleSubmit(event) {
         event.preventDefault();
         if (edit) {
@@ -40,7 +41,7 @@ function CardForm({edit = false, deck={}, card={}}) {
             }
             await createCard(deckId, card);
         }
-        history.push(`/decks/${deckId}`);
+        setFormData(initialFormData);
     }
 
     const editOrAdd = edit ? "Edit" : "Add";
