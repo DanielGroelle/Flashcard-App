@@ -41,7 +41,7 @@ function CreateEditDeck({edit = false}) {
     function handleChange(event) {
         let newFormData = {...formData};
         newFormData[event.target.name] = event.target.value;
-        setFormData(newFormData)
+        setFormData(newFormData);
     }
 
     async function handleSubmit(event) {
@@ -54,7 +54,7 @@ function CreateEditDeck({edit = false}) {
                 name: event.target.name.value,
                 description: event.target.description.value,
                 id: deckId
-            }
+            };
             newDeck = await updateDeck(deck);
         }
         else {
@@ -62,7 +62,7 @@ function CreateEditDeck({edit = false}) {
             let deck = {
                 name: event.target.name.value,
                 description: event.target.description.value
-            }
+            };
             newDeck = await createDeck(deck);
         }
         //take us back to the home screen

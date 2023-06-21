@@ -53,7 +53,7 @@ function StudyDeck() {
                 handleFlip();
             }
             else {
-                history.push("/")
+                history.push("/");
             }
         }
         else {
