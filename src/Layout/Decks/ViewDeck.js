@@ -92,6 +92,7 @@ function ViewDeck() {
         );
     }
     else {
+        //if the deck is loading or couldnt be found
         return (
             <div>
                 {loadingContent}

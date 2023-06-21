@@ -13,26 +13,25 @@ function CreateEditDeck({edit = false}) {
     const {deckId} = useParams();
     useEffect(()=>{
         const abortController = new AbortController();
-        if(deckId) {
-            (async ()=>{
-                try {
-                    let deck = await readDeck(deckId, abortController.signal);
-                    setFormData(deck);
+        (async ()=>{
+            try {
+                //load the deck and set it to formData
+                let deck = await readDeck(deckId, abortController.signal);
+                setFormData(deck);
+            }
+            catch(error) {
+                if (error.name === "AbortError") {
+                    // Ignore `AbortError`
+                    console.log("Aborted");
                 }
-                catch(error) {
-                    if (error.name === "AbortError") {
-                        // Ignore `AbortError`
-                        console.log("Aborted");
-                    }
-                    else if (error.message === "404 - Not Found") {
-                        setLoadingContent(<h1>Deck not found.</h1>);
-                    }
-                    else {
-                        throw error;
-                    }
+                else if (error.message === "404 - Not Found") {
+                    setLoadingContent(<h1>Deck not found.</h1>);
                 }
-            })();
-        }
+                else {
+                    throw error;
+                }
+            }
+        })();
 
         return () => {
             abortController.abort(); // Cancels any pending request or response
@@ -46,10 +45,11 @@ function CreateEditDeck({edit = false}) {
     }
 
     async function handleSubmit(event) {
-        event.preventDefault();
+        event.preventDefault(); //stops page from reloading
 
         let newDeck;
         if (edit) {
+            //if we're editing, update the deck, also with an id
             let deck = {
                 name: event.target.name.value,
                 description: event.target.description.value,
@@ -58,19 +58,21 @@ function CreateEditDeck({edit = false}) {
             newDeck = await updateDeck(deck);
         }
         else {
+            //if we're adding, create a deck
             let deck = {
                 name: event.target.name.value,
                 description: event.target.description.value
             }
             newDeck = await createDeck(deck);
         }
+        //take us back to the home screen
         history.push(`/decks/${newDeck.id}`);
     }
 
-
+    //if the formData is loaded for editing, or we're adding a new deck, display the form
     if (formData.id || !edit) {
-        const editOrCreate = edit ? "Edit" : "Create";
-        const cancelDestination = edit ? `/decks/${deckId}` : `/`;
+        const editOrCreate = edit ? "Edit" : "Create"; //conditionally render "Edit" or "Create" if we're editing or creating
+        const cancelDestination = edit ? `/decks/${deckId}` : `/`; //destination when pressing cancel button
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -97,6 +99,7 @@ function CreateEditDeck({edit = false}) {
         );
     }
     else {
+        //if the formData hasnt loaded yet or the deck doesnt exist
         return (
             <div>
                 {loadingContent}

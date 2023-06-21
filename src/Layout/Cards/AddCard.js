@@ -37,13 +37,14 @@ function AddCard() {
         };
     }, [deckId, cardId]);
 
-    //checking if the deck exists
+    //if the deck exists display the CardForm component
     if (deck.id) {
         return (
             <CardForm edit={false} deck={deck}/>
         );
     }
     else {
+        //if the deck is loading or couldnt be found
         return (
             <div>
                 {loadingContent}

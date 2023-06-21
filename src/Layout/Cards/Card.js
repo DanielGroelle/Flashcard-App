@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 function Card({card, deckId, handleDeleteCard}) {
+    //individual card display
     return (
         <div className="card">
             <div className="card-body">

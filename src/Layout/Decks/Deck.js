@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 function Deck({deck, handleDelete}) {
+    //individual deck display
     return (
         <div className="card">
             <div className="card-body">
